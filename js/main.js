@@ -29,6 +29,11 @@ let layer2 = d3.select('svg').append('g');
 let layer3 = d3.select('svg').append('g');
 
 
+let page1 = document.getElementById("page1");
+let page2 = document.getElementById("page2");
+let page3 = document.getElementById("page3");
+let pageBG = document.getElementById("pageBG");
+let ifGetData = false;
 
 //Get audio file
 for (let i = 1; i <= skyNum; i++) {
@@ -43,7 +48,15 @@ for (let i = 1; i <= skyNum; i++) {
 // audio[0].play();
 
 function getData() {
+  //page transition
+  page1.classList.add("m-fadeOut");
+  pageBG.classList.add("m-fadeOut");
+  // page2.classList.add("m-fadeIn");
   cityName = document.getElementById('inputCity').value;
+
+  document.getElementById('cityTitle').innerHTML='RHYTHEM FROM '+ cityName.toUpperCase() +' SKY';
+  document.getElementById('cityTitle2').innerHTML='RHYTHEM FROM '+ cityName.toUpperCase() +' SKY';
+
   console.log(cityName);
   myURL = apiHead + cityName + '&apiKey=' + apikey;
   skyInfos = [];
@@ -55,10 +68,12 @@ function getData() {
   playlist = [];
   // clearTimeout();
 
+
   fetch(myURL)
     .then(response => response.json())
     .then(function (data) {
-      data.forecasts.forecastLocation.forecast.forEach(element => {
+      
+        data.forecasts.forecastLocation.forecast.forEach(element => {
         skyInfos.push(parseInt(element.skyInfo));
         comforts.push(parseInt(element.comfort));
         temps.push(parseInt(element.temperature));
@@ -71,16 +86,26 @@ function getData() {
       console.log(playlist);
       // console.log(data.forecasts.forecastLocation.forecast);
       // console.log(skyInfos);
-    });
+      ifGetData=true;
 
 
+    })
+    .catch(function() {
+        //another page to handle error? 
+        console.log("error");
+    });;
+
+//Start Drawing and Playing Beat
   idx = 0;
   clearTimeout(timeOut);
   timeOut = setTimeout(function () {
+    page2.classList.add("m-fadeOut");
     interval = setInterval(playSound, 500);
   }, 3000)
 
+
 }
+
 
 
 function playSound() {
@@ -88,16 +113,23 @@ function playSound() {
   // go to next
 
   if (idx < playlist.length) {
-    testAnime();
-    // shapeAnime();
+   
     //Call shape animation
+    testAnime();
     // shapeAnime(skyinfos[idx]);
 
     current = playlist[idx++];
+    // check if is the last of playlist
+    if (idx >= playlist.length){
+      setTimeout(function(){ 
+      page1.classList.remove('m-fadeOut');
+      page1.classList.add('m-fadeIn')
+    
+    }, 3000);
+     
 
-    // check if is the last of playlist and return to first
-    // if (idx >= playlist.length)
-    //   idx = 0;
+    }
+     
     // return to begin
     current.currentTime = 0;
     // play
@@ -108,45 +140,6 @@ function playSound() {
     clearInterval(interval);
   }
 
-
-}
-
-function twojstest() {
-  // // Make an instance of two and place it on the page.
-  // var elem = document.getElementById('myCanvas');
-  // var params = { width: 285, height: 200 };
-  // // var params = { type: Two.Types[type],
-  // //   fullscreen: true};
-  // var two = new Two(params).appendTo(elem);
-
-  // var circle1 = two.makeCircle(-70, 0, 50);
-  // var rect1 = two.makeRectangle(70, 0, 100, 100);
-  // circle1.fill = '#FF8000';
-  // circle1.stroke = 'orangered';
-  // rect1.fill = 'rgba(0, 200, 255, 0.75)';
-  // rect1.stroke = '#1C75BC';
-
-  // // Groups can take an array of shapes and/or groups.
-  // var shape1 = two.makeGroup(circle1, rect1);
-
-  // // And have translation, rotation, scale like all shapes.
-  // shape1.translation.set(two.width / 2, two.height / 2);
-  // shape1.rotation = Math.PI;
-  // shape1.scale = 0.75;
-
-  // // You can also set the same properties a shape have.
-  // shape1.linewidth = 7;
-  // // Don't forget to tell two to render everything
-  // // to the screen
-  // two.update();
-}
-
-function pxix() {
-  const type = "WebGL";
-  if (!PIXI.utils.isWebGLSupported()) {
-    type = "canvas";
-  }
-  PIXI.utils.sayHello(type);
 }
 
 function shapeAnime() {
@@ -198,6 +191,8 @@ function testAnime() {
 
 
 
+
+let animeLine1 = () => {
 // line drawing animation, credit to: https://bl.ocks.org/basilesimon/f164aec5758d16d51d248e41af5428e4
 let curveX = d3.scaleLinear().domain([0, 10]).range([0, 100]);
 let curveY = d3.scaleLinear().domain([0, 10]).range([-10, 150]);
@@ -213,7 +208,7 @@ let line1 = d3.line()
 // .curve(de.curveLinear)
 
 // data is created inside the function so it is always unique
-let animeLine1 = () => {
+
   let line1Data = d3.range(10).map(function () { return Math.random() * 10 })
   console.log(line1Data);
   // Uncomment following line to clear the previously drawn line
@@ -238,8 +233,6 @@ let animeLine1 = () => {
     .attr("stroke-dashoffset", 0);
   // .on("end", oneline);
 };
-
-
 
 
 let animeLine2 = () => {
@@ -349,7 +342,6 @@ let animePie1 = () => {
   
 }
 
-
 let animeRect1 = () => {
   
     layer3.append('rect')
@@ -429,7 +421,7 @@ let animeTris1 = (shapeColor) => {
 
 let animeCross1 = (shapeColor) => {
  
-  let crossSize=50;
+  let crossSize=100;
   let symbolGenerator = d3.symbol()
 	.type(d3.symbolCross)
   .size(crossSize);
@@ -449,7 +441,7 @@ let animeCross1 = (shapeColor) => {
   .duration(200)
   .ease(d3.easeLinear)
   .attr("transform", function(d) {
-    return `translate(${shapeX},${shapeY}) scale(1) rotate(`+Math.random() * 360 +')';
+    return `translate(${shapeX},${shapeY}) scale(1) rotate(`+(Math.random() * 360+360) +')';
   } )
 
 }
@@ -477,15 +469,99 @@ let animeCricle1 =(shapeColor) => {
   .attr('r',200)
 }
 
-let timeCount=0;
+let animeLine3 =(shapeColor) => {
 
-// setTimeout(animeLine1,timeCount+=500s);
+  layer3.append('g').append('path')
+  .attr("stroke", "darkgrey")
+  .attr("stroke-width", "1")
+  .attr('fill','none')
+.transition()
+.duration(1000)
+.ease(d3.easeElastic)
+ .attrTween('d', function() {
+  // M x y - move cursor to x, y
+  // s x2 y2 x y - draw a smooth curve using control point x2, y2, to end point x, y
+  // (it's a lower case s so use relative coords)
+  return function(t) { return 'M 50 50 s 50 ' + (50-t * 50 ) + ' 100 0'; };
+  })
+
+} 
+
+let animeRadar1 =(shapeColor) => {
+
+  let data = [
+    {
+      className: 'argentina',
+      axes: [
+        {axis: "strength", value: 6}, 
+        {axis: "intelligence", value: 7}, 
+        {axis: "charisma", value: 10},  
+        {axis: "dexterity", value: 13},  
+        {axis: "luck", value: 9}
+      ]
+    }
+  ];
+  function randomDataset() {
+    return data.map(function(d) {
+      return {
+        className: d.className,
+        axes: d.axes.map(function(axis) {
+          return {axis: axis.axis, value: Math.ceil(Math.random() * 10)};
+        })
+      };
+    });
+  }
+
+
+  let chart = RadarChart.chart();
+
+  let cfg = chart.config(); // retrieve default config
+  let svg = d3.select('body').append('svg')
+    .attr('width', cfg.w + cfg.w + 50)
+    .attr('height', cfg.h + cfg.h / 4);
+  svg.append('g').classed('single', 1).datum(randomDataset()).call(chart);
+  
+  RadarChart.defaultConfig.color = function() {};
+  RadarChart.defaultConfig.radius = 3;
+  RadarChart.defaultConfig.w = 400;
+  RadarChart.defaultConfig.h = 400;
+
+  // many radars
+  chart.config({w: cfg.w / 4, h: cfg.h / 4, axisText: false, levels: 0, circles: false});
+  cfg = chart.config();
+
+  function render() {
+    let game = svg.selectAll('g.game').data(
+      [
+        randomDataset(),
+        randomDataset(),
+        randomDataset(),
+        randomDataset()
+      ]
+    );
+    game.enter().append('g').classed('game', 1);
+    game
+      .attr('transform', function(d, i) { return 'translate('+((cfg.w * 4) + 50 + (i * cfg.w))+','+ (cfg.h * 1.3) +')'; })
+      .call(chart);
+  
+    setTimeout(render, 1000);
+  }
+  render();
+
+  
+}
+
+let timeCount=1000;
+
+// animeLine1();
+// setTimeout(animeLine1,timeCount+=500);
 // setTimeout(animeLine2,timeCount+=500);
 // setTimeout(animeArc1,timeCount+=500);
-// // animePie1();
-// setTimeout(animeRect2('grey'),500);
-// animeLine2();
 // animePie1();
-// animeTris1('grey');
-// animeCross1('grey');
-// animeCricle1('red');
+setTimeout(animeRect2('grey'),timeCount+=500);
+// setTimeout(animeLine2,timeCount+=500);
+// setTimeout(animePie1,timeCount+=500);
+// setTimeout(animeTris1('grey'),timeCount+=500);
+setTimeout(animeCross1('grey'),timeCount+=500);
+// setTimeout(animeCricle1('red'),timeCount+=500);
+// setTimeout(animeLine3,timeCount+=500);
