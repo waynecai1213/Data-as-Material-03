@@ -146,7 +146,7 @@ function playSound() {
     //Call shape animation
     // testAnime();
     current = playlist[idx++];
-    shapeAnime(skyInfos[idx]);
+    
     // check if is the last of playlist
     if (idx >= playlist.length) {
       setTimeout(function () {
@@ -160,7 +160,12 @@ function playSound() {
     // return to begin
     current.currentTime = 0;
     // play
+    
     current.play();
+    setTimeout(function(){
+      shapeAnime(skyInfos[idx]);
+    },300)
+   
     console.log("play")
   } else {
     clearInterval(interval);
@@ -172,10 +177,10 @@ function shapeAnime(shapeIdx) {
   console.log('shapeIdx: ' + shapeIdx);
   switch (shapeIdx) {
     case 1:
-      animeLine2();
+      animeCross1();
       break;
     case 2:
-      animeArc1();
+      animeCircle3();
       break;
     case 3:
       animePie1();
@@ -187,10 +192,10 @@ function shapeAnime(shapeIdx) {
       animeRect2();
       break;
     case 6:
-      animeTris1();
+      animeLine2();
       break;
     case 7:
-      animeCross1();
+      animeRect2();
       break;
     case 8:
       animeTris1();
@@ -202,7 +207,7 @@ function shapeAnime(shapeIdx) {
       animeArc1();
       break;
     case 11:
-      animePie1();
+      animeTris1();
       break;
     case 12:
       animeRect1();
@@ -211,10 +216,10 @@ function shapeAnime(shapeIdx) {
       animeRect2();
       break;
     case 14:
-      animeTris1();
+      animeCross1();
       break;
     case 15:
-      animeCross1();
+      animeTris1();
       break;
     case 16:
       animeRect2();
@@ -882,48 +887,4 @@ let animeCircle3 = () => {
 
 
 // let timeCount = 1000;
-
-// animeCircle3();
-// shapeAnime(2);
-// animeArc1();
-// animeArc1();
-// animeArc1();
-// animeArc1();
-// animeArc1();
-// animeCross1();
-// animeCross1();
-// animeCross1();
-// animeCross1();
-// animePie1();
-// animePie1();
-// animePie1();
-// animeRect2();
-// animeRect1();
-
-// animeRadar1();
-// animeCricle2();
-// animeLine3();
-// animeCricle2();
-// animeCricleBg();
-
-// setInterval(animeCricleBg,3000)
-// shapeAnime(4);
-// animeRect1();
-// shapeAnime();
-// animeLine2();
-// animeLine2();
-
-// setTimeout(animeLine1,timeCount+=500);
-// setTimeout(animeLine2,timeCount+=500);
 // setTimeout(animeArc1,timeCount+=500);
-// animePie1();
-// setTimeout(animeRect2('grey'), timeCount += 500);
-// setTimeout(animeLine2,timeCount+=500);
-// setTimeout(animePie1,timeCount+=500);
-// setTimeout(animeTris1('grey'),timeCount+=500);
-// setTimeout(animeCross1('grey'), timeCount += 500);
-// setTimeout(animeCricle1('red'),timeCount+=500);
-// setTimeout(animeLine3,timeCount+=500);
-// animeRadar1();
-// animeLine3();
-// animeCricle1();
