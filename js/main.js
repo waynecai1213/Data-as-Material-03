@@ -57,6 +57,9 @@ function getData() {
   page2.classList.add("m-fadeIn");
   page2.classList.remove("m-fadeOut");
 
+  page3.classList.remove("m-fadeOut");
+  page3.classList.add("m-fadeIn");
+
   pageBG.classList.add("m-fadeIn");
   pageBG.classList.remove("m-fadeOut");
 
