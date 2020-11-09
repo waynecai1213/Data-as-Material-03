@@ -32,7 +32,7 @@ body {
 
 p{
   font-weight: 300;
-  font-size: 16px;
+  font-size: 18px;
 }
 
 #page1{
@@ -101,6 +101,10 @@ opacity: 1;
 
 .input:focus{
   border-bottom: 1px solid rgba(0, 0, 0, 0.8);
+  background-color: transparent;
+}
+.input:-internal-autofill-selected{
+
 }
 
 @media screen and (min-width: 920px) {
@@ -142,7 +146,7 @@ outline: none;
   background-color: rgba(255, 255, 255,1);
   /* align-items:center; */
   position: absolute;
-  z-index: 15;
+  z-index: 10;
 
   animation: fadeIn ease 5s;
   -webkit-animation: fadeIn ease 3s;
@@ -198,19 +202,13 @@ outline: none;
 
 #bgVideo{
   position: fixed;
-  z-index: 15;
+  z-index: 10;
   left: 0;
   top: 0;
   min-width: 100%; 
   min-height: 100%;
 }
-/* 
-@media all and (max-width:30em){
-   .button{
-display:block;
-margin:0.4em auto;
-   }
-  } */
+
 
 #page2{
   display:flex;
@@ -219,8 +217,8 @@ margin:0.4em auto;
   text-align: center;
   /* align-items:center; */
   position: absolute;
-  z-index: 10;
-  background-color: rgba(255, 255, 255, 0.2);
+  z-index: 15;
+  background-color: rgba(220, 226, 255, 0.4);
   -webkit-backdrop-filter: blur(5px);
   backdrop-filter: blur(5px);  
 }
@@ -230,6 +228,15 @@ margin:0.4em auto;
   top: 1%;
   right: 2%;
   font-size: 24px;
+  color: rgba(0, 0, 0, 0.5);
+}
+
+#backBtn{
+  position: fixed;
+  top: 1%;
+  left: 2%;
+  font-size: 24px;
+  outline: none;
 }
 
 #page3{
@@ -281,3 +288,69 @@ margin:0.4em auto;
     opacity: 0;
   }
 }
+
+
+#page4{
+
+  display:flex;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+
+  position: absolute;
+  z-index: 19;
+  background-color: rgba(220, 226, 255, 0.4);
+  /* background-color: rgba(255, 255, 255, 0.2); */
+  -webkit-backdrop-filter: blur(5px);
+  backdrop-filter: blur(5px); 
+}
+
+
+.page4Content{
+  position: absolute;
+  width: 60%;
+  top: 25%;
+  left: 20%;
+  /* margin: 0 auto; */
+}
+
+
+#replayBtn{
+  outline: none;
+  opacity: 0.5;
+  transition: all 0.3s;
+  margin-top: 5vw;
+ }
+ 
+ #replayBtn:hover{
+ opacity: 1;
+ }
+
+
+#closeBtn2{
+  outline: none;
+  opacity: 0.5;
+  transition: all 0.3s;
+  margin-top: 5vw;
+ }
+ 
+ #closeBtn2:hover{
+ opacity: 1;
+ }
+
+ #optionBtn{
+  position: fixed;
+  right: 2%;
+  top: 8%;
+  outline: none;
+  opacity: 0.5;
+  transition: all 0.3s;
+ }
+ 
+ #optionBtn:hover{
+ opacity: 1;
+ }
+
+ .radarChart{
+  stroke-width: 1;
+ }
