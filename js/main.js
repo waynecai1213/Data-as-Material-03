@@ -193,7 +193,7 @@ function shapeAnime(shapeIdx) {
       animeCross1();
       break;
     case 8:
-      animeLine2();
+      animeTris1();
       break;
     case 9:
       animeCircle3();
@@ -217,16 +217,16 @@ function shapeAnime(shapeIdx) {
       animeCross1();
       break;
     case 16:
-      animeCircle3();
+      animeRect2();
       break;
     case 17:
-      animeLine2();
+      animePie1();
       break;
     case 18:
       animeArc1();
       break;
     case 19:
-      animePie1();
+      animeLine2();
       break;
     case 20:
       animeRect1();
@@ -826,7 +826,7 @@ let animeCircle3 = () => {
 
   nodes.forEach(function (item, i) {
     setTimeout(function () {
-      console.log(item);
+      // console.log(item);
 
       radialCircles
         .append('circle')
