@@ -164,7 +164,7 @@ function playSound() {
     current.play();
     setTimeout(function(){
       shapeAnime(skyInfos[idx]);
-    },300)
+    },800)
    
     console.log("play")
   } else {
