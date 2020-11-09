@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,90 +9,120 @@
   <!-- <link href="https://fonts.googleapis.com/css2?family=Mukta:wght@300;400;500;800&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Advent+Pro:wght@300;400;500;700&display=swap" rel="stylesheet"> -->
-  <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap" rel="stylesheet"> 
+  <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./css/style.css">
-  
+
   <!-- <script src="./js/radial.js"></script>
   <script src="./js/spiral.js"></script> -->
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.2.2/d3.min.js"></script>
   <!-- <script src="https://d3js.org/d3.v3.js"></script> -->
   <!-- <script src="https://rawgit.com/tpreusse/radar-chart-d3/master/src/radar-chart.js"></script> -->
- 
+
 </head>
+
 <body>
 
- <div id="page1" class="page">
-    <input id="aboutBtn"  onclick="aboutPage()" type="image" src="./materials/info.png" alt="About" width="44" height="44">
-    <div class="page1Content">
-      <div class="intro">
-      <h1> RHYTHEM FROM THE SKY</h1>
-      <p>Weather forecast reimagined as generated rhythem. <br />An experiment with live data and synesthesia experience... </p>
+
+  <div id="page1" class="page">
+
+    <input id="aboutBtn" onclick="toggleInfo()" type="image" src="./materials/info.png" alt="About" width="44"
+      height="44">
+    <div id="infoContent" class="m-fadeOut">
+      <div class="infoText">
+      <p>
+        In this experimental project, 7-day weather forecast information (such as sky clearness, moon phase, comfort
+        level, temperature, wind speed and direction) are interpreted to various geometric shapes and audio elements.
+        Together they composed an irregular rhythem...</br></br>
+
+       Inspired by Patatap </br>
+        Individual practice of Data as Materials course taught by Abe Rubenstein
+
+      </p>
     </div>
+      <input id="closeBtn" onclick="closeInfo()" type="image" src="./materials/close.png" alt="Close" width="44"
+      height="44">
+    </div>
+
+    <div class="page1Content" >
+      <div class="intro">
+        <h1> RHYTHEM FROM THE SKY</h1>
+        <p>Weather forecast reimagined as generated rhythem. <br />An experiment with live data and synesthesia
+          experience... </p>
+      </div>
       <div>
         <input class="input" type="text" name="" placeholder="Enter a City Name" id="inputCity">
         <button class="button" id='getData' onclick="getData()"><span>GO </span></button>
-       <p class="or"> OR</p>
+        <p class="or"> OR</p>
         <button class="button" id='getData' onclick="getData()"><span>random Explore</span></button>
       </div>
-    
+
 
     </div>
-  </div> 
-  
+  </div>
+
 
   <div id="page2" class="m-fadeOut">
 
-    <input id="backBtn"  onclick="backToHome()" type="image" src="./materials/return.png" alt="Option" width="44" height="44">
+    <input id="backBtn" onclick="backToHome()" type="image" src="./materials/return.png" alt="Option" width="44"
+      height="44">
 
-   <div class="cityTitle" id='cityTitle'>RHYTHEM FROM XX CITY</div>
+    <div class="cityTitle" id='cityTitle'>RHYTHEM FROM XX CITY</div>
 
-      <div class="page2Content">
-       
-    <div class="lds-ripple"><div></div><div></div></div>
-    <p>Cooking the beats for you ...</p>
-  </div>
+    <div class="page2Content">
+
+      <div class="lds-ripple">
+        <div></div>
+        <div></div>
+      </div>
+      <p>Cooking the beats for you ...</p>
+    </div>
   </div>
 
   <div id="page3">
-    <input id="backBtn"  onclick="backToHome()" type="image" src="./materials/return.png" alt="Option" width="44" height="44">
-    <input id="optionBtn"  onclick="toggleOption()" type="image" src="./materials/options.png" alt="Option" width="44" height="44">
+    <input id="backBtn" onclick="backToHome()" type="image" src="./materials/return.png" alt="Option" width="44"
+      height="44">
+    <input id="optionBtn" onclick="toggleOption()" type="image" src="./materials/options.png" alt="Option" width="44"
+      height="44">
     <div class="cityTitle" id='cityTitle'>RHYTHEM FROM XX CITY</div>
 
-  <svg viewBox="0 0 100 100" id="myCanvas" preserveAspectRatio="xMinYMin meet">
+    <svg viewBox="0 0 100 100" id="myCanvas" preserveAspectRatio="xMinYMin meet">
 
-  </svg>
-  
-</div>
+    </svg>
+
+  </div>
 
 
-<div id="page4" class="m-fadeOut">  
-  <input id="optionBtn"  onclick="toggleOption()" type="image" src="./materials/options.png" alt="Option" width="44" height="44">
-  <div class="cityTitle" id='cityTitle'>RHYTHEM FROM XX CITY</div>
-  <div class="page4Content">
-   
+  <div id="page4" class="m-fadeOut">
+    <input id="optionBtn" onclick="toggleOption()" type="image" src="./materials/options.png" alt="Option" width="44"
+      height="44">
+    <div class="cityTitle" id='cityTitle'>RHYTHEM FROM XX CITY</div>
+    <div class="page4Content">
+
       <input class="input" type="text" name="" placeholder="Enter a City Name" id="inputCity">
       <button class="button" id='getData' onclick="getData()"><span>GO </span></button>
-     <p class="or"> OR</p>
+      <p class="or"> OR</p>
       <button class="button" id='getData' onclick="getData()"><span>random Explore</span></button>
 
-      <br/>
-      <input  id="replayBtn"  onclick="replay()" type="image" src="./materials/replay.png" alt="replay" title="Replay" width="44" height="44">
+      <br />
+      <input id="replayBtn" onclick="replay()" type="image" src="./materials/replay.png" alt="replay" title="Replay"
+        width="44" height="44">
 
-      <br/>
-      <input  id="closeBtn2"  onclick="closeOption()" type="image" src="./materials/close.png" alt="Close" width="44" height="44">
-      
+      <br />
+      <input id="closeBtn2" onclick="closeOption()" type="image" src="./materials/close.png" alt="Close" width="44"
+        height="44">
+
     </div>
-</div>
+  </div>
 
 
-<div id="pageBG">
+  <div id="pageBG">
 
-  <video autoplay muted loop id="bgVideo">
-    <source src="./materials/bgvideo.mp4" type="video/mp4">
-    
-  </video>
-</div>
+    <video autoplay muted loop id="bgVideo">
+      <source src="./materials/bgvideo.mp4" type="video/mp4">
+
+    </video>
+  </div>
 
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/randomcolor/0.6.1/randomColor.min.js"></script>
@@ -99,7 +130,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/two.js/0.7.0/two.min.js"></script>
   <script src="./js/main.js"></script>
   <script src="./js/page.js"></script>
-  
+
 </body>
 
 </html>

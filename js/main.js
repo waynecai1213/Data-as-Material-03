@@ -29,7 +29,7 @@ let layer2 = d3.select('svg').append('g');
 let layer3 = d3.select('svg').append('g');
 
 
-
+let infoDiv = document.getElementById("infoContent");
 let page1 = document.getElementById("page1");
 let page2 = document.getElementById("page2");
 let page3 = document.getElementById("page3");
@@ -302,6 +302,15 @@ function testAnime() {
 function closeOption() {
   page4.classList.add('m-fadeOut');
   page4.classList.remove('m-fadeIn');
+}
+
+function closeInfo(){
+  infoDiv.classList.add('m-fadeOut');
+  infoDiv.classList.remove('m-fadeIn');
+}
+
+function toggleInfo(){
+  infoDiv.classList.toggle('m-fadeIn');
 }
 
 function toggleOption() {
